@@ -35,7 +35,7 @@ char **_setenv(const char *name, const char *value, char **new_env)
 				str_cat(buffer, value);
 				free(new_env[i]);
 				new_env[i] = buffer;
-				return (0);
+				return (new_env);
 			}
 			i++;
 		}

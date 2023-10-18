@@ -1,4 +1,5 @@
 #include "shell.h"
+#include <unistd.h>
 /**
  * exit_shell - exits the shell
  * @cmdList: command array
@@ -23,7 +24,10 @@ void exit_shell(char **cmdList, char *lineptr, char *progName, int loopcount,
 			status = exit_arg;
 		else
 		{
-			print_error(progName, loopcount, command, "illegal number");
+			status = 2;
+			print_error(progName, loopcount, command, "Illegal number", cmdList[1]);
+			if (!(isatty(STDIN_FILENO)))
+				exit(2);
 			free_handler(cmdList);
 			return;
 		}
@@ -37,7 +41,6 @@ void exit_shell(char **cmdList, char *lineptr, char *progName, int loopcount,
 			free(new_environ[i++]);
 		free(new_environ);
 	}
-	print_str("Exit");
 	exit(status);
 }
 

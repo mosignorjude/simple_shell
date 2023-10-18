@@ -43,9 +43,11 @@ void print_str(char *str)
  * @loopcount: loop count
  * @cmd: command
  * @error_msg: error message
+ * @arg: argument
  * Return: void
  */
-void print_error(char *progName, size_t loopcount, char *cmd, char *error_msg)
+void print_error(char *progName, size_t loopcount, char *cmd, char *error_msg,
+		char *arg)
 {
 	char error_buffer[READ_SIZE];
 	char countToStr[32];
@@ -66,6 +68,11 @@ void print_error(char *progName, size_t loopcount, char *cmd, char *error_msg)
 	str_cat(error_buffer, cmd);
 	str_cat(error_buffer, ": ");
 	str_cat(error_buffer, error_msg);
+	if (arg)
+	{
+		str_cat(error_buffer, ": ");
+		str_cat(error_buffer, arg);
+	}
 	str_cat(error_buffer, "\n");
 
 	bytes_written =  write(STDERR_FILENO, error_buffer, str_len(error_buffer));

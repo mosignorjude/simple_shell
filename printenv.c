@@ -11,6 +11,8 @@ void printenv(char **cmd_list, char *progName, int loopcount, char **environ)
 {
 	unsigned int i = 0;
 	int n;
+	(void)progName;
+	(void)loopcount;
 
 	n = cmd_counter(cmd_list);
 	if (n < 2)
@@ -21,7 +23,7 @@ void printenv(char **cmd_list, char *progName, int loopcount, char **environ)
 			i++;
 		}
 	}
-	execute_cmd(cmd_list, progName, loopcount);
+	/*execute_cmd(cmd_list, progName, loopcount);*/
 	free_handler(cmd_list);
 }
 

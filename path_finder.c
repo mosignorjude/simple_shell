@@ -13,7 +13,7 @@ char *get_path(char *cmd, char *progName, size_t loopcount)
 	char *cmdFile_path;
 	struct stat buffer;
 
-	cmdPath = getenv("PATH");
+	cmdPath = _getenv("PATH");
 	if (cmdPath)
 	{
 		cmdPath_cpy = str_dup(cmdPath);
@@ -41,10 +41,11 @@ char *get_path(char *cmd, char *progName, size_t loopcount)
 			cmdPath_token = strtok(NULL, ":");
 		}
 		free(cmdPath_cpy);
-
 		if (stat(cmd, &buffer) == 0)
 			return (str_dup(cmd));
 	}
-	print_error(progName, loopcount, cmd, "not found");
+	print_error(progName, loopcount, cmd, "not found", NULL);
+	if (!isatty(STDIN_FILENO))
+		exit(127);
 	return (NULL);
 }

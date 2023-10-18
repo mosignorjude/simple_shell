@@ -1,5 +1,4 @@
 #include "shell.h"
-#include <stdio.h>
 /**
  * _getenv - get environment
  * @name: name of the environment variable
@@ -61,8 +60,8 @@ char **ex_setenv(char **cmdList, char *progName, size_t count, char **new_env)
 	if (n == 3)
 	{
 		result =  _setenv(name, value, new_env);
-		if (result != 0)
-			print_error(progName, count, cmdList[0], "failed");
+		if (result == NULL)
+			print_error(progName, count, cmdList[0], "failed", NULL);
 	}
 	else
 		return (NULL);

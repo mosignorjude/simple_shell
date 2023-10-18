@@ -23,7 +23,6 @@ int main(int ac, char **av)
 		bytes_read = _getline(&cmd_line, &n, stdin);
 		if (bytes_read == -1)
 		{
-			print_str("Exited");
 			break;
 		}
 		av = split_str(cmd_line, delim);

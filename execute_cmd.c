@@ -1,4 +1,5 @@
 #include "shell.h"
+#include <unistd.h>
 /**
  * execute_cmd - execute command
  * @cmd_list: command to be execute_cmd
@@ -14,7 +15,6 @@ void execute_cmd(char **cmd_list, char *progName, size_t loopcount)
 
 	if (cmd_list == NULL || cmd_list[0] == NULL)
 		return;
-
 	cmd = get_path(cmd_list[0], progName, loopcount);
 	if (cmd == NULL)
 		return;

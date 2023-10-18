@@ -26,7 +26,8 @@ int str_to_int(char *str, int *result);
 int put_char(char c);
 void print_str(char *str);
 int print_prompt(void);
-void print_error(char *progName, size_t count, char *cmd, char *error_msg);
+void print_error(char *progName, size_t count, char *cmd, char *error_msg,
+		char *arg);
 /*alpha-digits utilities*/
 int isdigit_(int c);
 int isalpha_(int c);
@@ -46,7 +47,8 @@ char **split_str(char *str, const char *delim);
 void execute_cmd(char **cmd_list, char *progName, size_t loopcount);
 int cmd_counter(char **cmd);
 char *get_path(char *cmd, char *progName, size_t loopcount);
-void exit_shell(char **cmdList, char *lineptr, char *progName, int loopcount, char **new_environ);
+void exit_shell(char **cmdList, char *lineptr, char *progName, int loopcount,
+		char **new_environ);
 void exec_builtins(char **cmd_list, char *lineptr, char *progName, int count,
 		char ***new_environ);
 int is_builtin(char *command);
