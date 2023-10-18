@@ -46,7 +46,8 @@ char **split_str(char *str, const char *delim);
 void execute_cmd(char **cmd_list, char *progName, size_t loopcount);
 int cmd_counter(char **cmd);
 char *get_path(char *cmd, char *progName, size_t loopcount);
-void exit_shell(char **cmdList, char *lineptr, char *progName, int loopcount, char **new_environ);
+void exit_shell(char **cmdList, char *lineptr, char *progName, int loopcount,
+		char **new_environ);
 void exec_builtins(char **cmd_list, char *lineptr, char *progName, int count,
 		char ***new_environ);
 int is_builtin(char *command);
