@@ -22,10 +22,8 @@ int main(int ac, char **av)
 		loopcount++;
 		bytes_read = _getline(&cmd_line, &n, stdin);
 		if (bytes_read == -1)
-		{
-			print_str("Exited");
 			break;
-		}
+		
 		av = split_str(cmd_line, delim);
 		if (av == NULL)
 			continue;
