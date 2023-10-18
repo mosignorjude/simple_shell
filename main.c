@@ -3,7 +3,7 @@
  * main - entry point
  * @ac: argument counter
  * @av: argument vector array
- * Return: always 0
+ * Return: always zero
  */
 int main(int ac, char **av)
 {

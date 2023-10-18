@@ -2,7 +2,6 @@
 /**
  * free_handler - handle memory freeing
  * @ptr: points to a pointer to be freed
- * @n: number of times to free
  * Return: void
  */
 void free_handler(char **ptr)
