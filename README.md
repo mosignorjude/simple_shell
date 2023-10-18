@@ -38,6 +38,7 @@ $ ls -l
 $ cd my_new_directory
 $ env
 $ exit
+$ setenv
 ```
 **Non-Interactive Mode**
 
