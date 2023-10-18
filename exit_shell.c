@@ -23,7 +23,7 @@ void exit_shell(char **cmdList, char *lineptr, char *progName, int loopcount,
 			status = exit_arg;
 		else
 		{
-			print_error(progName, loopcount, command, "illegal number");
+			print_error(progName, loopcount, command, "Illegal number");
 			free_handler(cmdList);
 			return;
 		}
