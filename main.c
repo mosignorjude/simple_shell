@@ -20,7 +20,7 @@ int main(int ac, char **av)
 		if (isatty(STDIN_FILENO))
 			print_prompt();
 		loopcount++;
-		bytes_read = _getline(&cmd_line, &n, stdin);
+		bytes_read = getline(&cmd_line, &n, stdin);
 		if (bytes_read == -1)
 			break;
 
@@ -39,5 +39,7 @@ int main(int ac, char **av)
 	free(cmd_line);
 	if (new_environ)
 		free_handler(new_environ);
+	if (!(isatty(STDIN_FILENO)))
+		exit(0);
 	return (0);
 }

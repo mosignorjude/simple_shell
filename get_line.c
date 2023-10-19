@@ -6,19 +6,23 @@
  */
 int custom_fgetc(FILE *stream)
 {
-	char buffer;
+	static char buffer[READ_SIZE];
 	int fd;
-	ssize_t no_bytes_read;
+	ssize_t no_bytes_read = 0;
+	static size_t pos, size;
 
 	fd = fileno(stream);
 	if (fd == -1)
 		return (-1);
-
-	no_bytes_read = read(fd, &buffer, 1);
+	if (pos >= size)
+		no_bytes_read = read(fd, &buffer, 1);
 	if (no_bytes_read == -1 || no_bytes_read == 0)
 		return (-1);
 
-	return ((int)buffer);
+	pos = 0;
+	size = no_bytes_read;
+
+	return ((int)buffer[pos++]);
 }
 
 /**
