@@ -39,5 +39,7 @@ int main(int ac, char **av)
 	free(cmd_line);
 	if (new_environ)
 		free_handler(new_environ);
+	if (!(isatty(STDIN_FILENO)))
+		exit(0);
 	return (0);
 }
