@@ -10,14 +10,13 @@ char **_unsetenv(const char *name, char **new_env)
 	char **new_environ;
 	size_t size = 0;
 	size_t i = 0;
-	(void)new_env;
 
 	if (name == NULL)
 		return (NULL);
 
 	while (environ[size] != NULL)
 		size++;
-	new_environ = malloc(sizeof(char *) * (size + 1));
+	new_environ = malloc(sizeof(char *) * (size + 2));
 	if (new_environ == NULL)
 		return (NULL);
 

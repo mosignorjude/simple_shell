@@ -23,7 +23,6 @@ void printenv(char **cmd_list, char *progName, int loopcount, char **environ)
 			i++;
 		}
 	}
-	/*execute_cmd(cmd_list, progName, loopcount);*/
 	free_handler(cmd_list);
 }
 
