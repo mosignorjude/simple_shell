@@ -36,6 +36,8 @@ void execute_cmd(char **cmd_list, char *progName, size_t loopcount)
 		{
 			perror("Error: execve failed");
 			free(cmd);
+			if (!(isatty(STDIN_FILENO)))
+				exit(2);
 			exit(1);
 		}
 	}
