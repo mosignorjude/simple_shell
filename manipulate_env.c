@@ -43,28 +43,59 @@ char *_getenv(const char *name)
 char **ex_setenv(char **cmdList, char *progName, size_t count, char **new_env)
 {
 	int n;
-	char *name;
-	char *value;
+	char *name = NULL;
+	char *value = NULL;
 	char **result = NULL;
 
 	if (cmdList == NULL)
 		return (NULL);
-	if (cmdList[1] == NULL || cmdList[2] == NULL)
+	n = cmd_counter(cmdList);
+
+	if (n != 3)
 	{
+		perror("invalid number of arguments");
 		free_handler(cmdList);
 		return (NULL);
 	}
 	name = cmdList[1];
 	value = cmdList[2];
-	n = cmd_counter(cmdList);
-	if (n == 3)
-	{
-		result =  _setenv(name, value, new_env);
-		if (result == NULL)
-			print_error(progName, count, cmdList[0], "failed", NULL);
-	}
-	else
+	result =  _setenv(name, value, new_env);
+	if (result == NULL)
+		print_error(progName, count, cmdList[0], "failed", NULL);
+	free_handler(cmdList);
+	return (result);
+}
+
+/**
+ * ex_unsetenv - handel the execution of unsetenv
+ * @cmdList: command array
+ * @progName: shell name
+ * @count: loop count
+ * @new_env: track environment
+ * Return: void
+ */
+char **ex_unsetenv(char **cmdList, char *progName, size_t count,
+		char **new_env)
+{
+	int n;
+	char *name = NULL;
+	char **result = NULL;
+	(void)new_env;
+
+	if (cmdList == NULL)
 		return (NULL);
+	n = cmd_counter(cmdList);
+
+	if (n != 2)
+	{
+		perror("invalid number of arguments");
+		free_handler(cmdList);
+		return (NULL);
+	}
+	name = cmdList[1];
+	result =  _unsetenv(name, new_env);
+	if (result == NULL)
+		print_error(progName, count, cmdList[0], "failed", NULL);
 	free_handler(cmdList);
 	return (result);
 }

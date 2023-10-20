@@ -9,7 +9,7 @@ int main(int ac, char **av)
 {
 	char *cmd_line = NULL;
 	const char *delim = " \n";
-	size_t n = 0, loopcount = 0;
+	size_t n = 0, loopcount = 0, i = 0;
 	ssize_t bytes_read = 0;
 	char *progName = av[0];
 	char **new_environ = NULL;
@@ -20,14 +20,12 @@ int main(int ac, char **av)
 		if (isatty(STDIN_FILENO))
 			print_prompt();
 		loopcount++;
-		bytes_read = _getline(&cmd_line, &n, stdin);
+		bytes_read = getline(&cmd_line, &n, stdin);
 		if (bytes_read == -1)
 			break;
-
 		av = split_str(cmd_line, delim);
 		if (av == NULL)
 			continue;
-
 		if (is_builtin(av[0]) == 0)
 			exec_builtins(av, cmd_line, progName, loopcount, &new_environ);
 		else
@@ -38,7 +36,11 @@ int main(int ac, char **av)
 	}
 	free(cmd_line);
 	if (new_environ)
-		free_handler(new_environ);
+	{
+		while (new_environ[i] != NULL)
+			free(new_environ[i++]);
+		free(new_environ);
+	}
 	if (!(isatty(STDIN_FILENO)))
 		exit(0);
 	return (0);

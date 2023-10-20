@@ -1,5 +1,4 @@
 #include "shell.h"
-#include <unistd.h>
 /**
  * exit_shell - exits the shell
  * @cmdList: command array

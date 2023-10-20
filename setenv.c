@@ -10,35 +10,20 @@
 char **_setenv(const char *name, const char *value, char **new_env)
 {
 	char **tmp_env;
-	size_t size = 0;
-	char *buffer;
 	int i = 0;
 
 	if (name == NULL || value == NULL)
 		return (NULL);
-	if (new_env != NULL)
+	while (environ[i] != NULL)
 	{
-		while (new_env[size] != NULL)
-			size++;
-
-		while (new_env[i] != NULL)
+		if (str_ncmp(environ[i], name, str_len(name)) == 0)
 		{
-			char *current_env = new_env[i];
-
-			if (str_ncmp(current_env, name, str_len(name)) == 0)
-			{
-				buffer = malloc(str_len(name) + str_len(value) + 2);
-				if (buffer == NULL)
-					return (NULL);
-				str_cpy(buffer, name);
-				str_cat(buffer, "=");
-				str_cat(buffer, value);
-				free(new_env[i]);
-				new_env[i] = buffer;
-				return (new_env);
-			}
-			i++;
+			tmp_env = update_env(name, value);
+			if (new_env)
+				free_handler(new_env);
+			return (tmp_env);
 		}
+		i++;
 	}
 	tmp_env = add_env(name, value);
 	if (new_env)
@@ -59,13 +44,11 @@ char **add_env(const char *name, const char *value)
 
 	while (environ[size] != NULL)
 		size++;
-
 	new_environ =  malloc(sizeof(char *) * (size + 2));
 	if (new_environ == NULL)
 		return (NULL);
 	for (i = 0; i < size; i++)
 		new_environ[i] = str_dup(environ[i]);
-
 	buffer = malloc((str_len(name) + str_len(value) + 2));
 	if (buffer == NULL)
 	{
@@ -77,11 +60,54 @@ char **add_env(const char *name, const char *value)
 	str_cpy(buffer, name);
 	str_cat(buffer, "=");
 	str_cat(buffer, value);
-
 	new_environ[size] = buffer;
 	new_environ[size + 1] = NULL;
 	environ = new_environ;
+	print_str("env added");
 	return (new_environ);
 }
 
+/**
+ * update_env - update an environment variable
+ * @name: variable name
+ * @value: variable value
+ * Return: void
+ */
+char **update_env(const char *name, const char *value)
+{
+	char **new_environ;
+	size_t size = 0;
+	char *buffer;
+	size_t i = 0;
 
+	if (name == NULL || value == NULL)
+		return (NULL);
+
+	while (environ[size] != NULL)
+		size++;
+	new_environ = malloc(sizeof(char *) * (size + 1));
+	if (new_environ == NULL)
+		return (NULL);
+
+	for (i = 0; i < size; i++)
+	{
+		if (str_ncmp(environ[i], name, str_len(name)) != 0)
+		{
+			new_environ[i] = str_dup(environ[i]);
+		}
+		else
+		{
+			buffer = malloc(str_len(name) + str_len(value) + 2);
+			if (buffer == NULL)
+				return (NULL);
+			str_cpy(buffer, name);
+			str_cat(buffer, "=");
+			str_cat(buffer, value);
+			new_environ[i] = buffer;
+		}
+	}
+	new_environ[i] = NULL;
+	environ = new_environ;
+	print_str("env updated");
+	return (new_environ);
+}

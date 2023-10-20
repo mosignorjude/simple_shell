@@ -6,7 +6,7 @@
  */
 int is_builtin(char *command)
 {
-	char *builtins[64] = {"exit", "env", "setenv"};
+	char *builtins[64] = {"exit", "env", "setenv", "unsetenv"};
 	int i;
 
 	if (command == NULL)
@@ -47,6 +47,14 @@ void exec_builtins(char **cmd_list, char *lineptr, char *progName, int count,
 			free_handler(*new_environ);
 		*new_environ = tmp_env;
 	}
+	else if (str_cmp(cmd, "unsetenv") == 0)
+	{
+		tmp_env = ex_unsetenv(cmd_list, progName, count, *new_environ);
+		if (!tmp_env && (*new_environ))
+			free_handler(*new_environ);
+		*new_environ = tmp_env;
+	}
+
 
 }
 
