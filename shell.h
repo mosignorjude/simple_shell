@@ -56,8 +56,12 @@ int is_builtin(char *command);
 char *_getenv(const char *name);
 char **_setenv(const char *name, const char *value, char **);
 char **add_env(const char *name, const char *value);
+char **update_env(const char *name, const char *value);
 char **ex_setenv(char **cmdList, char *progName, size_t count, char **);
 void printenv(char **cmd_list, char *progName, int loopcount, char **environ);
+char **_unsetenv(const char *name, char **new_environ);
+char **ex_unsetenv(char **cmdList, char *progName, size_t count,
+		char **new_env);
 /*miscellenous*/
 void free_handler(char **ptr);
 

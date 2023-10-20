@@ -20,7 +20,7 @@ int main(int ac, char **av)
 		if (isatty(STDIN_FILENO))
 			print_prompt();
 		loopcount++;
-		bytes_read = _getline(&cmd_line, &n, stdin);
+		bytes_read = getline(&cmd_line, &n, stdin);
 		if (bytes_read == -1)
 			break;
 
